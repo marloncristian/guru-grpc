@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/testdata"
 
-	pb "github.com/marloncristian/guru-grpc/client/api/v1/services"
+	pb "github.com/marloncristian/guru-grpc/client/rpc/customer"
 )
 
 var (
@@ -21,8 +21,10 @@ var (
 )
 
 func main() {
+
 	log.SetOutput(os.Stdout)
 
+	//grpc dial options
 	var opts []grpc.DialOption
 	if *tls {
 		if *caFile == "" {
@@ -37,23 +39,25 @@ func main() {
 		opts = append(opts, grpc.WithInsecure())
 	}
 
-	//opts = append(opts, grpc.WithBlock())
-	opts = append(opts, grpc.WithInsecure())
+	//dial to server
 	conn, err := grpc.Dial(*serverAddr, opts...)
 	if err != nil {
 		log.Fatalf("fail to dial: %v", err)
 	}
 	defer conn.Close()
-	client := pb.NewCustomerServiceClient(conn)
 
+	//interface for server request interop
+	client := pb.NewCustomerServiceClient(conn)
 	request := &pb.CustomerAddRequest{
 		Id:   21,
 		Name: "Marlon Cristian Pereira",
 	}
 
+	//calls the add method and handles response
 	resp, err := client.Add(context.Background(), request)
 	if err != nil {
 		log.Fatalf("fail to dial: %v", err)
+	} else {
+		log.Print(resp.CustomerId)
 	}
-	log.Print(resp.CustomerId)
 }
