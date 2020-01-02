@@ -1,0 +1,13 @@
+syntax = "proto3";
+package service;
+option go_package = "services";
+import "domain/customer.proto";
+
+
+service CustomerService {
+	rpc add (domain.Customer) returns (CustomerAddResponse) {}
+}
+
+message CustomerAddResponse {
+	int64 CustomerId = 1;
+}

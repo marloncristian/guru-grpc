@@ -1,0 +1,17 @@
+syntax = "proto3";
+package services;
+option go_package = "services";
+
+
+service CustomerService {
+	rpc add (CustomerAddRequest) returns (CustomerAddResponse) {}
+}
+
+message CustomerAddRequest {
+	int64 id  = 1;
+	string name = 2;
+}
+
+message CustomerAddResponse {
+	int64 CustomerId = 1;
+}

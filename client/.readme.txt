@@ -1,0 +1,27 @@
+
+Tutorial
+    https://medium.com/@amsokol.com/tutorial-how-to-develop-go-grpc-microservice-with-http-rest-endpoint-middleware-kubernetes-daebb36a97e9
+    
+
+1. Installing
+
+    1.1 installing protobuf
+        go get -u github.com/golang/protobuf/protoc-gen-go
+
+    1.2 installing proto buffer Compiler
+        download de protobuf compiler, extract to go path folder (with include folder)
+        > https://github.com/protocolbuffers/protobuf/releases
+
+2. Compiler proto files
+
+    //protoc --proto_path=api/proto/v1 --go_out=plugins=grpc:pkg/api/v1 todo-service.proto
+    protoc --proto_path=internal/proto/domain --go_out=plugins=grpc:api/v1 customer.proto
+
+
+3. Tips
+    > https://jbrandhorst.com/post/go-protobuf-tips/
+
+
+. build services
+    > protoc --proto_path=internal/proto --go_out=plugins=grpc:api/v1 services/customer-service.proto
+    > protoc --proto_path=internal/proto --go_out=plugins=grpc:api/v1 domain/customer.proto
