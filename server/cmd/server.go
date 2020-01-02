@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
 	"log"
@@ -12,7 +11,9 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/testdata"
 
-	pb "github.com/marloncristian/guru-grpc/server/api/v1/services"
+	pb "github.com/marloncristian/guru-grpc/server/rpc/customer"
+
+	"github.com/marloncristian/guru-grpc/server/internal/servers"
 )
 
 var (
@@ -53,18 +54,6 @@ func main() {
 
 	//initializes the grpc server
 	grpcServer := grpc.NewServer(opts...)
-	pb.RegisterCustomerServiceServer(grpcServer, &server{})
+	pb.RegisterCustomerServiceServer(grpcServer, &servers.CustomerServer{})
 	grpcServer.Serve(lis)
-}
-
-//server structure: business logic for handling income requests
-type server struct {
-}
-
-//simple add method
-func (*server) Add(ctx context.Context, request *pb.CustomerAddRequest) (*pb.CustomerAddResponse, error) {
-	response := &pb.CustomerAddResponse{
-		CustomerId: 1710000,
-	}
-	return response, nil
 }

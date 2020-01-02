@@ -1,2 +1,7 @@
 . build services
-    > protoc --proto_path=api/v1/proto --go_out=plugins=grpc:api/v1/services customer-service.proto
+    > protoc --proto_path=rpc --go_out=plugins=grpc:rpc customer/customer-server.proto
+
+. standards 
+    > https://github.com/golang-standards/project-layout
+    > https://github.com/bxcodec/go-clean-arch-grpc
+    > https://twitchtv.github.io/twirp/docs/best_practices.html ***
