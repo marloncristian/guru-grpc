@@ -24,6 +24,7 @@ var (
 )
 
 func main() {
+
 	log.SetOutput(os.Stdout)
 
 	flag.Parse()
@@ -31,6 +32,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
+	//socket configurations
 	var opts []grpc.ServerOption
 	if *tls {
 		if *certFile == "" {
@@ -48,14 +51,17 @@ func main() {
 
 	log.Print("initialing server...")
 
+	//initializes the grpc server
 	grpcServer := grpc.NewServer(opts...)
 	pb.RegisterCustomerServiceServer(grpcServer, &server{})
 	grpcServer.Serve(lis)
 }
 
+//server structure: business logic for handling income requests
 type server struct {
 }
 
+//simple add method
 func (*server) Add(ctx context.Context, request *pb.CustomerAddRequest) (*pb.CustomerAddResponse, error) {
 	response := &pb.CustomerAddResponse{
 		CustomerId: 1710000,

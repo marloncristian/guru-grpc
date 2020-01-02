@@ -1,3 +1,2 @@
 . build services
-    > protoc --proto_path=internal/proto --go_out=plugins=grpc:api/v1 services/customer-service.proto
-    > protoc --proto_path=internal/proto --go_out=plugins=grpc:api/v1 domain/customer.proto
+    > protoc --proto_path=api/v1/proto --go_out=plugins=grpc:api/v1/services customer-service.proto
