@@ -13,7 +13,7 @@ import (
 
 	pb "github.com/marloncristian/guru-grpc/server/rpc/customer"
 
-	"github.com/marloncristian/guru-grpc/server/internal/servers"
+	"github.com/marloncristian/guru-grpc/server/internal/customerserver"
 )
 
 var (
@@ -54,6 +54,6 @@ func main() {
 
 	//initializes the grpc server
 	grpcServer := grpc.NewServer(opts...)
-	pb.RegisterCustomerServiceServer(grpcServer, &servers.CustomerServer{})
+	pb.RegisterCustomerServiceServer(grpcServer, &customerserver.Server{})
 	grpcServer.Serve(lis)
 }

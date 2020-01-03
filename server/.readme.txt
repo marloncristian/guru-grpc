@@ -1,5 +1,5 @@
 . build services
-    > protoc --proto_path=rpc --go_out=plugins=grpc:rpc customer/customer-server.proto
+    > protoc --proto_path=rpc --go_out=plugins=grpc:rpc customer/service.proto
 
 . standards 
     > https://github.com/golang-standards/project-layout

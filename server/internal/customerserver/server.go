@@ -1,16 +1,17 @@
-package servers
+package customerserver
 
 import (
 	"context"
 	pb "github.com/marloncristian/guru-grpc/server/rpc/customer"
 )
 
-// CustomerServer customer server
-type CustomerServer struct {
+// Server customer server
+type Server struct {
 }
 
 //Add simple add method
-func (*CustomerServer) Add(ctx context.Context, request *pb.CustomerAddRequest) (*pb.CustomerAddResponse, error) {
+func (*Server) Add(ctx context.Context, request *pb.CustomerAddRequest) (*pb.CustomerAddResponse, error) {
+	//business layer
 	response := &pb.CustomerAddResponse{
 		CustomerId: 1710000,
 	}
