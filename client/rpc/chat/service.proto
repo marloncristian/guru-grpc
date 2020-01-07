@@ -1,0 +1,16 @@
+syntax = "proto3";
+package chat;
+option go_package = "chat";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+service ChatService {
+
+    // Send sends message to the server
+    rpc Send(google.protobuf.StringValue) returns (google.protobuf.Empty) {}
+
+    // Subscribe is streaming method to get echo messages from the server
+    rpc Subscribe(google.protobuf.Empty) returns (stream google.protobuf.StringValue) {}
+    
+}

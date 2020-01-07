@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"log"
 	"os"
 
@@ -10,7 +11,10 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/testdata"
 
-	pb "github.com/marloncristian/guru-grpc/client/rpc/customer"
+	"github.com/golang/protobuf/ptypes/empty"
+	"github.com/golang/protobuf/ptypes/wrappers"
+	"github.com/marloncristian/guru-grpc/client/rpc/chat"
+	"github.com/marloncristian/guru-grpc/client/rpc/customer"
 )
 
 var (
@@ -47,17 +51,40 @@ func main() {
 	defer conn.Close()
 
 	//interface for server request interop
-	client := pb.NewCustomerServiceClient(conn)
-	request := &pb.CustomerAddRequest{
+	customerclient := customer.NewCustomerServiceClient(conn)
+	chatclient := chat.NewChatServiceClient(conn)
+
+	//calls the add method and handles response
+	request := &customer.CustomerAddRequest{
 		Id:   21,
 		Name: "Marlon Cristian Pereira",
 	}
-
-	//calls the add method and handles response
-	resp, err := client.Add(context.Background(), request)
+	resp, err := customerclient.Add(context.Background(), request)
 	if err != nil {
 		log.Fatalf("fail to dial: %v", err)
 	} else {
 		log.Print(resp.CustomerId)
 	}
+
+	//sends a chat message throught chat channel
+	_, err = chatclient.Send(context.Background(), &wrappers.StringValue{Value: "ping"})
+	if err != nil {
+		log.Fatalf("fail to dial: %v", err)
+	}
+
+	//listens for any server message
+	client, err := chatclient.Subscribe(context.Background(), &empty.Empty{})
+	lchan := make(chan string)
+	go func() {
+		r, err := client.Recv()
+		if err != nil {
+			log.Printf("err")
+		} else {
+			log.Printf(fmt.Sprintf("Response : %v", r.Value))
+
+			//closes the waiting channel as soon as it receives a response
+			close(lchan)
+		}
+	}()
+	<-lchan
 }

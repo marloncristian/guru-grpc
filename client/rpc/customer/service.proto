@@ -1,10 +1,11 @@
 syntax = "proto3";
 package customer;
 option go_package = "customer";
-
+import "google/protobuf/wrappers.proto";
 
 service CustomerService {
 	rpc add (CustomerAddRequest) returns (CustomerAddResponse) {}
+	rpc chat (stream google.protobuf.StringValue) returns (stream google.protobuf.StringValue) {}
 }
 
 message CustomerAddRequest {

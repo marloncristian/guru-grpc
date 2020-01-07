@@ -14,6 +14,7 @@ github.com/google/go-cmp v0.2.0/go.mod h1:oXzfMopK8JAjlY9xF4vHSVASa0yLyX7SntLO5a
 github.com/marloncristian/guru-grpc v0.0.0-20191213132904-aeb5e43b099b h1:MSbkIN8BY1DrEomm/8wx+g1qNek3+AWKycr3CssxlvU=
 github.com/marloncristian/guru-grpc v0.0.0-20200102201146-6e59333a9c45 h1:tBdKMqzuDhfsghV9rbS2BqhWRPe3O0QgIOdmTzFJfK0=
 github.com/marloncristian/guru-grpc v0.0.0-20200102210516-92d3f7369ae3 h1:vbmPHd9HtLl5eFcbmHMVIEiv/4e/hcSeW/ZEetGlsLk=
+github.com/marloncristian/guru-grpc v0.0.0-20200103134013-d41f0d20d145 h1:lrK+1RSgeIeAwvlZHgxONY7j6rit1URp2bIm4Kp+E70=
 github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4/go.mod h1:xMI15A0UPsDsEKsMN9yxemIoYk6Tm2C1GtYGdfGttqA=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/exp v0.0.0-20190121172915-509febef88a4/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=

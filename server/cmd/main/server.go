@@ -11,9 +11,11 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/testdata"
 
-	pb "github.com/marloncristian/guru-grpc/server/rpc/customer"
-
 	"github.com/marloncristian/guru-grpc/server/internal/customerserver"
+	"github.com/marloncristian/guru-grpc/server/rpc/customer"
+
+	"github.com/marloncristian/guru-grpc/server/internal/chatserver"
+	"github.com/marloncristian/guru-grpc/server/rpc/chat"
 )
 
 var (
@@ -54,6 +56,12 @@ func main() {
 
 	//initializes the grpc server
 	grpcServer := grpc.NewServer(opts...)
-	pb.RegisterCustomerServiceServer(grpcServer, &customerserver.Server{})
+
+	//register customer server
+	customer.RegisterCustomerServiceServer(grpcServer, customerserver.NewCustomerServer())
+
+	//register chat server
+	chat.RegisterChatServiceServer(grpcServer, chatserver.NewChatServer())
+
 	grpcServer.Serve(lis)
 }
